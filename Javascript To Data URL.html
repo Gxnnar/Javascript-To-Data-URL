@@ -25,25 +25,22 @@
     <br>
     <button onclick="convertToDataURL()">Convert</button>
     <p>Generated Link:</p>
-    <a id="dataUrlLink" href="#" onclick="runScript()">Click to Run Script</a>
-    
+    <a id="dataUrlLink" href="#">Click to Run Script</a>
+
     <script>
         function convertToDataURL() {
             let jsCode = document.getElementById("jsInput").value;
-            // Encode the JS code and create a Data URL, but it will execute within the current page
-            let encodedCode = encodeURIComponent(jsCode);
-            let dataUrl = `javascript:${encodedCode}`;
+            // Generate a script element and insert it into the document body
+            let script = document.createElement('script');
+            script.textContent = jsCode;
             
-            // Set the link's href to the Data URL
+            // Insert the script into the document, which will execute it
+            document.body.appendChild(script);
+            
+            // Inform the user that the script is ready to run
             let link = document.getElementById("dataUrlLink");
-            link.href = dataUrl;
-            link.innerText = "Click to Run the Script";
-        }
-
-        function runScript() {
-            let jsCode = document.getElementById("jsInput").value;
-            // This function will directly execute the JavaScript on the current page
-            eval(jsCode);
+            link.innerText = "Script is running now!";
+            link.href = "#";
         }
     </script>
 </body>
