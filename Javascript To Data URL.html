@@ -25,7 +25,7 @@
     <br>
     <button onclick="convertToDataURL()">Convert</button>
     <p>Generated Data URL:</p>
-    <a id="dataUrlLink" target="_blank">Click to Open</a>
+    <a id="dataUrlLink" target="_blank">Click to Run</a>
     
     <script>
         function convertToDataURL() {
@@ -33,9 +33,10 @@
             let encoded = encodeURIComponent(jsCode);
             let dataUrl = `data:text/javascript,${encoded}`;
             
+            // Create a link that runs the JavaScript
             let link = document.getElementById("dataUrlLink");
             link.href = dataUrl;
-            link.innerText = dataUrl;
+            link.innerText = "Click to Run the Script";
         }
     </script>
 </body>
