@@ -24,19 +24,26 @@
     <textarea id="jsInput" placeholder="Enter your JavaScript code here..."></textarea>
     <br>
     <button onclick="convertToDataURL()">Convert</button>
-    <p>Generated Data URL:</p>
-    <a id="dataUrlLink" target="_blank">Click to Run</a>
+    <p>Generated Link:</p>
+    <a id="dataUrlLink" href="#" onclick="runScript()">Click to Run Script</a>
     
     <script>
         function convertToDataURL() {
             let jsCode = document.getElementById("jsInput").value;
-            let encoded = encodeURIComponent(jsCode);
-            let dataUrl = `data:text/javascript,${encoded}`;
+            // Encode the JS code and create a Data URL, but it will execute within the current page
+            let encodedCode = encodeURIComponent(jsCode);
+            let dataUrl = `javascript:${encodedCode}`;
             
-            // Create a link that runs the JavaScript
+            // Set the link's href to the Data URL
             let link = document.getElementById("dataUrlLink");
             link.href = dataUrl;
             link.innerText = "Click to Run the Script";
+        }
+
+        function runScript() {
+            let jsCode = document.getElementById("jsInput").value;
+            // This function will directly execute the JavaScript on the current page
+            eval(jsCode);
         }
     </script>
 </body>
