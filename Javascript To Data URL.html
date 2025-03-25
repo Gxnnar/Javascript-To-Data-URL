@@ -25,22 +25,25 @@
     <br>
     <button onclick="convertToDataURL()">Convert</button>
     <p>Generated Link:</p>
-    <a id="dataUrlLink" href="#">Click to Run Script</a>
+    <a id="dataUrlLink" href="#" onclick="runScript()">Click to Run Script</a>
 
     <script>
         function convertToDataURL() {
             let jsCode = document.getElementById("jsInput").value;
-            // Generate a script element and insert it into the document body
-            let script = document.createElement('script');
-            script.textContent = jsCode;
-            
-            // Insert the script into the document, which will execute it
-            document.body.appendChild(script);
-            
-            // Inform the user that the script is ready to run
             let link = document.getElementById("dataUrlLink");
-            link.innerText = "Script is running now!";
-            link.href = "#";
+            link.innerText = "Click to Run the Script";
+            link.setAttribute("href", "#");  // Ensure link isn't broken
+            link.onclick = function() {
+                runScript(jsCode); // Execute the code when the link is clicked
+            };
+        }
+
+        function runScript(jsCode) {
+            try {
+                eval(jsCode);  // Execute the JavaScript code
+            } catch (e) {
+                alert('Error executing script: ' + e.message);  // Catch any errors
+            }
         }
     </script>
 </body>
