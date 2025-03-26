@@ -35,11 +35,12 @@
     <p>Generated Link:</p>
     <a id="dataUrlLink" href="#" onclick="runScript()">Click to Run Script</a>
 
-    <h2>Embedded Blooket</h2>
-    <iframe id="blooketFrame" src="https://www.blooket.com/" allowfullscreen></iframe>
+    <h2>Embedded Blooket (via Proxy)</h2>
+    <iframe id="blooketFrame" src="https://corsproxy.io/?https://www.blooket.com/" allowfullscreen></iframe>
     
     <p>If Blooket doesn’t load, try opening it in a new tab:</p>
     <button onclick="openBlooket()">Open Blooket in New Tab</button>
+    <button onclick="injectScript()">Inject Script into Blooket</button>
 
     <script>
         function convertToDataURL() {
@@ -62,6 +63,22 @@
 
         function openBlooket() {
             window.open("https://www.blooket.com/", "_blank");
+        }
+
+        function injectScript() {
+            const iframe = document.getElementById("blooketFrame");
+            if (!iframe.contentWindow) {
+                alert("Blooket iframe is blocked! Try opening it in a new tab.");
+                return;
+            }
+
+            const script = document.createElement("script");
+            script.textContent = `
+                alert('Script injected into Blooket!');
+                document.body.style.backgroundColor = 'red';
+            `;
+
+            iframe.contentWindow.document.body.appendChild(script);
         }
     </script>
 </body>
