@@ -3,71 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS to Data URL Converter + Blooket</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            text-align: center;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px;
-            margin: 5px;
-        }
-    </style>
+    <title>Embed Site and Inject Script</title>
 </head>
 <body>
-    <h2>JavaScript to Data URL Converter</h2>
-    <textarea id="jsInput" placeholder="Enter your JavaScript code here..."></textarea>
-    <br>
-    <button onclick="convertToDataURL()">Convert</button>
-    <p>Generated Link:</p>
-    <a id="dataUrlLink" href="#" onclick="runScript()">Click to Run Script</a>
 
-    <h2>Blooket Launcher</h2>
-    <p>Blooket blocks embedding, so use these buttons instead:</p>
-    <button onclick="openBlooket()">Open Blooket in New Tab</button>
-    <button onclick="injectScript()">Inject Script (Console Method)</button>
+    <h2>Embed Website and Inject Script</h2>
+
+    <!-- Embed an iframe with a URL -->
+    <iframe id="myIframe" src="https://example.com" width="600" height="400"></iframe>
+    <br>
+
+    <!-- Textarea for script input -->
+    <textarea id="scriptInput" rows="10" cols="50" placeholder="Enter JavaScript code to inject"></textarea>
+    <br>
+
+    <button onclick="injectScript()">Inject Script</button>
 
     <script>
-        function convertToDataURL() {
-            let jsCode = document.getElementById("jsInput").value;
-            let link = document.getElementById("dataUrlLink");
-            link.innerText = "Click to Run the Script";
-            link.setAttribute("href", "#");
-            link.onclick = function() {
-                runScript(jsCode);
-            };
-        }
+        function injectScript() {
+            const iframe = document.getElementById('myIframe');
+            const scriptContent = document.getElementById('scriptInput').value;
 
-        function runScript(jsCode) {
             try {
-                eval(jsCode);  // Run the JavaScript
+                // Access the iframe's document and inject a script
+                const iframeDocument = iframe.contentWindow.document;
+
+                // Create a script element and insert the user's JavaScript
+                const script = iframeDocument.createElement('script');
+                script.type = 'text/javascript';
+                script.innerHTML = scriptContent;
+
+                iframeDocument.body.appendChild(script);
             } catch (e) {
-                alert('Error executing script: ' + e.message);
+                alert('Error: Unable to inject script. Please ensure the iframe content is from the same origin.');
             }
         }
-
-        function openBlooket() {
-            window.open("https://www.blooket.com/", "_blank");
-        }
-
-        function injectScript() {
-            alert("Blooket blocks iframes, so inject this manually into the console after opening Blooket!");
-
-            let script = `
-                alert('Script injected into Blooket!');
-                document.body.style.backgroundColor = 'red';
-            `;
-
-            console.log("Copy and paste this into the console on Blooket:");
-            console.log(script);
-        }
     </script>
+
 </body>
 </html>
