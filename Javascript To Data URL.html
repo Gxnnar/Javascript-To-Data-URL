@@ -19,12 +19,6 @@
             padding: 10px;
             margin: 5px;
         }
-        iframe {
-            width: 100%;
-            height: 500px;
-            border: 1px solid #ccc;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -35,12 +29,10 @@
     <p>Generated Link:</p>
     <a id="dataUrlLink" href="#" onclick="runScript()">Click to Run Script</a>
 
-    <h2>Embedded Blooket (via Proxy)</h2>
-    <iframe id="blooketFrame" src="https://corsproxy.io/?https://www.blooket.com/" allowfullscreen></iframe>
-    
-    <p>If Blooket doesn’t load, try opening it in a new tab:</p>
+    <h2>Blooket Launcher</h2>
+    <p>Blooket blocks embedding, so use these buttons instead:</p>
     <button onclick="openBlooket()">Open Blooket in New Tab</button>
-    <button onclick="injectScript()">Inject Script into Blooket</button>
+    <button onclick="injectScript()">Inject Script (Console Method)</button>
 
     <script>
         function convertToDataURL() {
@@ -66,19 +58,15 @@
         }
 
         function injectScript() {
-            const iframe = document.getElementById("blooketFrame");
-            if (!iframe.contentWindow) {
-                alert("Blooket iframe is blocked! Try opening it in a new tab.");
-                return;
-            }
+            alert("Blooket blocks iframes, so inject this manually into the console after opening Blooket!");
 
-            const script = document.createElement("script");
-            script.textContent = `
+            let script = `
                 alert('Script injected into Blooket!');
                 document.body.style.backgroundColor = 'red';
             `;
 
-            iframe.contentWindow.document.body.appendChild(script);
+            console.log("Copy and paste this into the console on Blooket:");
+            console.log(script);
         }
     </script>
 </body>
