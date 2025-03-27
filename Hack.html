@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embed Site and Inject Script</title>
+    <title>Blooket Embed with JS Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        iframe {
+            width: 80%;
+            height: 500px;
+            border: 1px solid #ccc;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 5px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-
-    <h2>Embed Website and Inject Script</h2>
-
-    <!-- Embed an iframe with a URL -->
-    <iframe id="myIframe" src="https://blooket.com" width="1000" height="1000"></iframe>
-    <br>
-
-    <!-- Textarea for script input -->
-    <textarea id="scriptInput" rows="10" cols="50" placeholder="Enter JavaScript code to inject"></textarea>
-    <br>
-
-    <button onclick="injectScript()">Inject Script</button>
-
+    <h2>Blooket Embed with JavaScript Runner</h2>
+    <iframe id="blooketFrame" src="https://www.blooket.com/" allowfullscreen></iframe>
+    
+    <h3>Run JavaScript</h3>
+    <textarea id="jsInput" placeholder="Type JavaScript here..."></textarea><br>
+    <button onclick="runJS()">Run</button>
+    
     <script>
-        function injectScript() {
-            const iframe = document.getElementById('myIframe');
-            const scriptContent = document.getElementById('scriptInput').value;
-
+        function runJS() {
+            let code = document.getElementById("jsInput").value;
+            let frame = document.getElementById("blooketFrame").contentWindow;
             try {
-                // Access the iframe's document and inject a script
-                const iframeDocument = iframe.contentWindow.document;
-
-                // Create a script element and insert the user's JavaScript
-                const script = iframeDocument.createElement('script');
-                script.type = 'text/javascript';
-                script.innerHTML = scriptContent;
-
-                iframeDocument.body.appendChild(script);
-            } catch (e) {
-                alert('Error: Unable to inject script. Please ensure the iframe content is from the same origin.');
+                frame.eval(code);
+            } catch (error) {
+                alert("Error: " + error.message);
             }
         }
     </script>
-
 </body>
 </html>
